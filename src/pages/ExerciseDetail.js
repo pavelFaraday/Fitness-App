@@ -13,6 +13,9 @@ import {
 const ExerciseDetail = () => {
 	const [exerciseDetail, setExerciseDetail] = useState({});
 	const [exerciseVideos, setExerciseVideos] = useState([]);
+	const [targetMuscleExercises, setTargetMuscleExercises] = useState([]);
+	const [equipmentExercises, setEquipmentExercises] = useState([]);
+
 	const { id } = useParams();
 
 	useEffect(() => {
@@ -31,6 +34,18 @@ const ExerciseDetail = () => {
 				youtobeOptions
 			);
 			setExerciseVideos(exerciseVideosData.contents);
+
+			const targetMuscleExercisesData = await fetchData(
+				`${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`,
+				youtobeOptions
+			);
+			setTargetMuscleExercises(targetMuscleExercisesData);
+
+			const equipmentExercisesData = await fetchData(
+				`${exerciseDbUrl}/exercises/equipment/${exerciseDetailData.equipment}`,
+				youtobeOptions
+			);
+			setEquipmentExercises(equipmentExercisesData);
 		};
 
 		fetchExercisesData();
@@ -43,7 +58,10 @@ const ExerciseDetail = () => {
 				exerciseVideos={exerciseVideos}
 				name={exerciseDetail.name}
 			/>
-			<SimilarExercise />
+			<SimilarExercise
+				targetMuscleExercises={targetMuscleExercises}
+				equipmentExercises={equipmentExercises}
+			/>
 		</Box>
 	);
 };
