@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import Detail from "../components/Detail";
 import ExerciseVideos from "../components/ExerciseVideos";
-import SimilarExercise from "../components/SimilarExercises";
 import {
 	exercisesOptions,
 	fetchData,
@@ -13,8 +12,6 @@ import {
 const ExerciseDetail = () => {
 	const [exerciseDetail, setExerciseDetail] = useState({});
 	const [exerciseVideos, setExerciseVideos] = useState([]);
-	const [targetMuscleExercises, setTargetMuscleExercises] = useState([]);
-	const [equipmentExercises, setEquipmentExercises] = useState([]);
 
 	const { id } = useParams();
 
@@ -34,18 +31,6 @@ const ExerciseDetail = () => {
 				youtobeOptions
 			);
 			setExerciseVideos(exerciseVideosData.contents);
-
-			const targetMuscleExercisesData = await fetchData(
-				`${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`,
-				youtobeOptions
-			);
-			setTargetMuscleExercises(targetMuscleExercisesData);
-
-			const equipmentExercisesData = await fetchData(
-				`${exerciseDbUrl}/exercises/equipment/${exerciseDetailData.equipment}`,
-				youtobeOptions
-			);
-			setEquipmentExercises(equipmentExercisesData);
 		};
 
 		fetchExercisesData();
@@ -57,10 +42,6 @@ const ExerciseDetail = () => {
 			<ExerciseVideos
 				exerciseVideos={exerciseVideos}
 				name={exerciseDetail.name}
-			/>
-			<SimilarExercise
-				targetMuscleExercises={targetMuscleExercises}
-				equipmentExercises={equipmentExercises}
 			/>
 		</Box>
 	);
