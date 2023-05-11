@@ -24,7 +24,7 @@ const Footer = () => (
 			textAlign="center"
 			pb="40px"
 		>
-			Made with ❤️ by Giorgi Epitashvili
+			Made with ❤️ by React Fan
 		</Typography>
 	</Box>
 );
